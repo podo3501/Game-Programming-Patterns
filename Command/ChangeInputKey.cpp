@@ -1,22 +1,27 @@
 #include "ChangeInputKey.h"
 
-void Jump() {};
-void FireGun() {};
-void SwapWeapon() {};
+Actor::Actor()
+{}
+void Actor::Jump() 
+{};
+void Actor::FireGun() 
+{};
+void Actor::SwapWeapon() 
+{};
 
-void JumpCommand::Execute()
+void JumpCommand::Execute(Actor* actor)
 {
-	Jump();
+	actor->Jump();
 }
 
-void FireCommand::Execute()
+void FireCommand::Execute(Actor* actor)
 {
-	FireGun();
+	actor->FireGun();
 }
 
-void SwapCommand::Execute()
+void SwapCommand::Execute(Actor* actor)
 {
-	SwapWeapon();
+	actor->SwapWeapon();
 }
 
 InputHandler::InputHandler() :
@@ -30,9 +35,11 @@ bool InputHandler::isPressed(int n)
 	return false;
 }
 
-void InputHandler::handleInput()
+Command* InputHandler::handleInput()
 {
-	if (isPressed('x')) m_btnX->Execute();
-	else if (isPressed('y')) m_btnY->Execute();
-	else if (isPressed('z')) m_btnZ->Execute();
+	if (isPressed('x')) return m_btnX.get();
+	if (isPressed('y')) return m_btnY.get();
+	if (isPressed('z')) return m_btnZ.get();
+
+	return nullptr;
 }

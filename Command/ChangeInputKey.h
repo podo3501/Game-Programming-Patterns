@@ -2,29 +2,39 @@
 
 #include <memory>
 
+class Actor
+{
+public:
+	Actor();
+
+	void Jump();
+	void FireGun();
+	void SwapWeapon();
+};
+
 class Command
 {
 public:
 	virtual ~Command() {}
-	virtual void Execute() = 0;
+	virtual void Execute(Actor* actor) = 0;
 };
 
 class JumpCommand : public Command
 {
 public:
-	virtual void Execute() override;
+	virtual void Execute(Actor* actor) override;
 };
 
 class FireCommand : public Command
 {
 public:
-	virtual void Execute() override;
+	virtual void Execute(Actor* actor) override;
 };
 
 class SwapCommand : public Command
 {
 public:
-	virtual void Execute() override;
+	virtual void Execute(Actor* actor) override;
 };
 
 class InputHandler
@@ -32,7 +42,7 @@ class InputHandler
 public:
 	InputHandler();
 
-	void handleInput();
+	Command* handleInput();
 	bool isPressed(int n);
 
 private:
