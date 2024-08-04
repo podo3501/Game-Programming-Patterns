@@ -73,8 +73,4 @@ private:
 	std::map<KeyList, Behavier> m_keyList;
 
 	KeyList m_pressedKey;
-
-	std::unique_ptr<Command> m_btnX;
-	std::unique_ptr<Command> m_btnY;
-	std::unique_ptr<Command> m_btnZ;
 };

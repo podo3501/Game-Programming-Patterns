@@ -35,10 +35,7 @@ Behavier SwapCommand::Execute(Actor* actor)
 }
 
 InputHandler::InputHandler() :
-	m_pressedKey{ KEY_NONE },
-	m_btnX{ std::make_unique<JumpCommand>() },
-	m_btnY{ std::make_unique<FireCommand>() },
-	m_btnZ{ std::make_unique<SwapCommand>() }
+	m_pressedKey{ KEY_NONE }
 {
 	m_behavierCommand.insert(std::make_pair(JUMP, std::make_unique<JumpCommand>()));
 	m_behavierCommand.insert(std::make_pair(FIRE, std::make_unique<FireCommand>()));

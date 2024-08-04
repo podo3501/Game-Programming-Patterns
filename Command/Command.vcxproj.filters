@@ -8,8 +8,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChangeInputKey.h" />
+    <ClInclude Include="Undo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChangeInputKey.cpp" />
+    <ClCompile Include="Undo.cpp" />
   </ItemGroup>
 </Project>
