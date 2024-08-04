@@ -118,6 +118,9 @@
     <ProjectReference Include="..\Command\Command.vcxproj">
       <Project>{d5419c27-5d80-451c-add3-402bb8184b2f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Flyweight\Flyweight.vcxproj">
+      <Project>{9b86dd73-dbeb-4e69-ac56-b41613992ef7}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

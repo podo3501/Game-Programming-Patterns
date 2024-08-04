@@ -2,6 +2,7 @@
 #include <string>
 #include "../Command/ChangeInputKey.h"
 #include "../Command/Undo.h"
+#include "../Flyweight/Terrain.h"
 
 namespace CommandPattern
 {
@@ -49,5 +50,17 @@ namespace CommandPattern
 		cmdList.Undo();
 		EXPECT_EQ(unit->GetX(), xBefore);
 		EXPECT_EQ(unit->GetY(), yBefore);
+	}
+}
+
+namespace FlyweightPattern
+{
+	TEST(Terrain, Test)
+	{
+		World world;
+		world.GenerateTerrain();
+
+		auto movementCost = world.GetTile(2, 3).GetMovementCost();
+		EXPECT_GE(movementCost, 0);
 	}
 }
