@@ -1,45 +1,93 @@
 #include "ChangeInputKey.h"
+#include <ranges>
+#include <algorithm>
 
 Actor::Actor()
 {}
-void Actor::Jump() 
-{};
-void Actor::FireGun() 
-{};
-void Actor::SwapWeapon() 
-{};
-
-void JumpCommand::Execute(Actor* actor)
+Behavier Actor::Jump() 
 {
-	actor->Jump();
+	return JUMP;
 }
 
-void FireCommand::Execute(Actor* actor)
+Behavier Actor::FireGun() 
 {
-	actor->FireGun();
+	return FIRE;
 }
 
-void SwapCommand::Execute(Actor* actor)
+Behavier Actor::SwapWeapon() 
 {
-	actor->SwapWeapon();
+	return SWAP;
+}
+
+Behavier JumpCommand::Execute(Actor* actor)
+{
+	return actor->Jump();
+}
+
+Behavier FireCommand::Execute(Actor* actor)
+{
+	return actor->FireGun();
+}
+
+Behavier SwapCommand::Execute(Actor* actor)
+{
+	return actor->SwapWeapon();
 }
 
 InputHandler::InputHandler() :
+	m_pressedKey{ KEY_NONE },
 	m_btnX{ std::make_unique<JumpCommand>() },
 	m_btnY{ std::make_unique<FireCommand>() },
 	m_btnZ{ std::make_unique<SwapCommand>() }
-{}
-
-bool InputHandler::isPressed(int n)
 {
-	return false;
+	m_behavierCommand.insert(std::make_pair(JUMP, std::make_unique<JumpCommand>()));
+	m_behavierCommand.insert(std::make_pair(FIRE, std::make_unique<FireCommand>()));
+	m_behavierCommand.insert(std::make_pair(SWAP, std::make_unique<SwapCommand>()));
+
+	m_keyList.insert(std::make_pair(KEY_X, JUMP));
+	m_keyList.insert(std::make_pair(KEY_Y, FIRE));
+	m_keyList.insert(std::make_pair(KEY_Z, SWAP));
+}
+
+void InputHandler::ChangeKeyInput(KeyList key, Behavier behavier)
+{
+	auto find = m_keyList.find(key);
+	if (find == std::cend(m_keyList))
+		return;
+
+	std::ranges::for_each(m_keyList, [behavier](auto& key) {
+		if (key.second != behavier)
+			return;
+		key.second = BEHAVIER_NONE;
+		}); 
+
+	find->second = behavier;
+}
+
+void InputHandler::PressedKey(KeyList key)
+{
+	m_pressedKey = key;
+}
+
+bool InputHandler::isPressed(KeyList key)
+{
+	return (m_pressedKey == key);
+}
+
+Command* InputHandler::GetCommand(KeyList key)
+{
+	auto find = m_keyList.find(key);
+	if (find == std::cend(m_keyList))
+		return nullptr;
+
+	auto cmd = m_behavierCommand.find(find->second);
+	if (cmd == std::cend(m_behavierCommand))
+		return nullptr;
+
+	return cmd->second.get();
 }
 
 Command* InputHandler::handleInput()
 {
-	if (isPressed('x')) return m_btnX.get();
-	if (isPressed('y')) return m_btnY.get();
-	if (isPressed('z')) return m_btnZ.get();
-
-	return nullptr;
+	return GetCommand(m_pressedKey);
 }
