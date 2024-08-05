@@ -4,6 +4,7 @@
 #include "../Command/Undo.h"
 #include "../Flyweight/Terrain.h"
 #include "../Observer/Achievement.h"
+#include "../Prototype/SpawnMonster.h"
 
 namespace CommandPattern
 {
@@ -79,5 +80,18 @@ namespace ObserverPattern
 		physics.UpdateEntity(entity);
 
 		EXPECT_EQ(achievements.IsFell(), true);
+	}
+}
+
+namespace PrototypePattern
+{
+	TEST(SpawnMonster, Test)
+	{
+		std::unique_ptr<Monster> ghostPrototype = std::make_unique<Ghost>(15, 3);
+		std::unique_ptr<Spawner> ghostSpawner = std::make_unique<Spawner>(ghostPrototype.get());
+		EXPECT_EQ(ghostPrototype->GetHealth(), 15);
+
+		std::unique_ptr<Monster> ghost = ghostSpawner->SpawnMonster();
+		EXPECT_EQ(ghost->GetHealth(), 15);
 	}
 }
