@@ -1,10 +1,33 @@
 #include "pch.h"
-#include <string>
 #include "../Command/ChangeInputKey.h"
 #include "../Command/Undo.h"
 #include "../Flyweight/Terrain.h"
 #include "../Observer/Achievement.h"
 #include "../Prototype/SpawnMonster.h"
+#include "../State/FSM.h"
+
+class GlobalEnv : public ::testing::Environment
+{
+public:
+	GlobalEnv() {}
+	~GlobalEnv() {}
+
+	void SetUp()
+	{
+		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	}
+
+	void TearDown()
+	{}
+};
+
+int main(int argc, char** argv)
+{
+	::testing::InitGoogleTest(&argc, argv);
+	::testing::AddGlobalTestEnvironment(new GlobalEnv);
+
+	return RUN_ALL_TESTS();
+}
 
 namespace CommandPattern
 {
@@ -93,5 +116,17 @@ namespace PrototypePattern
 
 		std::unique_ptr<Monster> ghost = ghostSpawner->SpawnMonster();
 		EXPECT_EQ(ghost->GetHealth(), 15);
+	}
+}
+
+namespace StatePattern
+{
+	TEST(FiniteStateMachine, Test)
+	{
+		Heroine heroine;
+		EXPECT_EQ(heroine.GetGraph(), IMAGE_STAND);
+
+		heroine.HandleInput(PRESS_DOWN);
+		EXPECT_EQ(heroine.GetGraph(), IMAGE_DUCKING);
 	}
 }
