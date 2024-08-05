@@ -3,6 +3,7 @@
 #include "../Command/ChangeInputKey.h"
 #include "../Command/Undo.h"
 #include "../Flyweight/Terrain.h"
+#include "../Observer/Achievement.h"
 
 namespace CommandPattern
 {
@@ -62,5 +63,21 @@ namespace FlyweightPattern
 
 		auto movementCost = world.GetTile(2, 3).GetMovementCost();
 		EXPECT_GE(movementCost, 0);
+	}
+}
+
+namespace ObserverPattern
+{
+	TEST(Achievement, Test)
+	{
+		Entity entity;
+		Physics physics;
+		Achievements achievements;
+
+		physics.AddObserver(&achievements);
+
+		physics.UpdateEntity(entity);
+
+		EXPECT_EQ(achievements.IsFell(), true);
 	}
 }
