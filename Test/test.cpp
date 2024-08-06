@@ -5,6 +5,7 @@
 #include "../Observer/Achievement.h"
 #include "../Prototype/SpawnMonster.h"
 #include "../State/FSM.h"
+#include "../Bytecode/VirtualMachine.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -128,5 +129,30 @@ namespace StatePattern
 
 		heroine.HandleInput(PRESS_DOWN);
 		EXPECT_EQ(heroine.GetGraph(), IMAGE_DUCKING);
+	}
+}
+
+namespace BytecodePattern
+{
+	TEST(VirtualMachine, Test)
+	{
+		VM vm;
+		std::vector<std::string> cmdList;
+		cmdList.emplace_back("LITERAL 0");
+		cmdList.emplace_back("LITERAL 0");
+		cmdList.emplace_back("GET_HEALTH");
+		cmdList.emplace_back("LITERAL 0");
+		cmdList.emplace_back("GET_AGILITY");
+		cmdList.emplace_back("LITERAL 0");
+		cmdList.emplace_back("GET_WISDOM");
+		cmdList.emplace_back("ADD");
+		cmdList.emplace_back("LITERAL 2");
+		cmdList.emplace_back("DIVIDE");
+		cmdList.emplace_back("ADD");
+		cmdList.emplace_back("SET_HEALTH");
+		vm.Excute(cmdList);
+
+		auto wizard = GetWizard(0);
+		EXPECT_EQ(wizard->GetHealth(), 54);
 	}
 }

@@ -115,6 +115,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bytecode\Bytecode.vcxproj">
+      <Project>{f27e8a92-7346-49fb-9b91-fa4247a3df5e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Command\Command.vcxproj">
       <Project>{d5419c27-5d80-451c-add3-402bb8184b2f}</Project>
     </ProjectReference>
