@@ -6,6 +6,7 @@
 #include "../Prototype/SpawnMonster.h"
 #include "../State/FSM.h"
 #include "../Bytecode/VirtualMachine.h"
+#include "../TypeObject/Monster.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -154,5 +155,19 @@ namespace BytecodePattern
 
 		auto wizard = GetWizard(0);
 		EXPECT_EQ(wizard->GetHealth(), 54);
+	}
+}
+
+namespace TypeObjectPattern
+{
+	using namespace TO;
+	TEST(MonsterBreed, Test)
+	{
+		MonsterManager manager;
+		manager.CreateBreed(L"./Test/monster.json");
+
+		std::unique_ptr<TO::Monster> trollArcher = manager.MakeMonster(TrollArcher);
+		EXPECT_EQ(trollArcher->GetAttack(), L"Æ®·Ñ ±Ã¼ö°¡ È°À» ½õ´Ï´Ù!");
+		EXPECT_EQ(trollArcher->GetHealth(), 25);
 	}
 }

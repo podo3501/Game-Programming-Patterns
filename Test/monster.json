@@ -1,0 +1,19 @@
+{
+	"Troll":
+	{
+		"Health": 25,
+		"Attack": "트롤이 당신을 때립니다!"
+	},
+	"TrollArcher":
+	{
+		"Parent": "Troll",
+		"Health": 0,
+		"Attack": "트롤 궁수가 활을 쏩니다!"
+	},
+	"TrollMage":
+	{
+		"Parent": "Troll",
+		"Health": 0,
+		"Attack": "트롤 마법사가 마법 공격을 합니다!"
+	}
+}
