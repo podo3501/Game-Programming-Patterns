@@ -10,6 +10,7 @@
 #include "../EventQueue/Audio.h"
 #include "../ServiceMediator&Decorator/Locator.h"
 #include "../DataLocality/Particle.h"
+#include "../DirtyFlag/GraphNode.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -224,5 +225,23 @@ namespace DataLocality
 		particle.Update();
 
 		EXPECT_EQ(particle.GetActive(), 1);
+	}
+}
+
+namespace DirtyFlag
+{
+	TEST(GraphNode, Test)
+	{
+		std::unique_ptr<Mesh> meshParent = std::make_unique<Mesh>();
+		std::unique_ptr<Mesh> meshChild = std::make_unique<Mesh>();
+		std::unique_ptr<GraphNode> nodeParent = std::make_unique<GraphNode>(meshParent.get());
+		std::unique_ptr<GraphNode> nodeChild = std::make_unique<GraphNode>(meshChild.get());
+
+		nodeChild->SetTransform(Transform(5));
+		nodeParent->Attach(nodeChild.get());
+		nodeParent->Render(Transform::Origin(), false);
+		
+		EXPECT_EQ(nodeParent->GetTransform().GetValue(), 10);
+		EXPECT_EQ(nodeChild->GetTransform().GetValue(), 15);
 	}
 }

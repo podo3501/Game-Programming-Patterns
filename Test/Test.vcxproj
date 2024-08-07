@@ -132,6 +132,9 @@
     <ProjectReference Include="..\DataLocality\DataLocality.vcxproj">
       <Project>{8a9966df-daf7-4a45-b991-eec37eb214f9}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\DirtyFlag\DirtyFlag.vcxproj">
+      <Project>{14d9bb3b-471f-43d6-a7d2-b3a0a926ff05}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\EventQueue\EventQueue.vcxproj">
       <Project>{c5346e59-2142-4746-89af-b53e13ccb70d}</Project>
     </ProjectReference>
