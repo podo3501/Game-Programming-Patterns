@@ -141,6 +141,9 @@
     <ProjectReference Include="..\Prototype\Prototype.vcxproj">
       <Project>{7ebc090b-b6f5-46c1-9b5e-028f7f94b64e}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ServiceMediator&amp;Decorator\ServiceMediator&amp;Decorator.vcxproj">
+      <Project>{5e6211ff-0644-4020-9809-f88b9a821611}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\State\State.vcxproj">
       <Project>{97580377-e3c9-44e9-9d30-410b252d27bb}</Project>
     </ProjectReference>

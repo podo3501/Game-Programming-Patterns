@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "../Command/ChangeInputKey.h"
 #include "../Command/Undo.h"
 #include "../Flyweight/Terrain.h"
@@ -8,6 +8,7 @@
 #include "../Bytecode/VirtualMachine.h"
 #include "../TypeObject/Monster.h"
 #include "../EventQueue/Audio.h"
+#include "../ServiceMediator&Decorator/Locator.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -17,6 +18,7 @@ public:
 
 	void SetUp()
 	{
+		//메모리 릭을 잡기 위한 옵션
 		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	}
 
@@ -24,6 +26,7 @@ public:
 	{}
 };
 
+//GlobalEnv 클래스의 SetUp을 해주기 위해서.
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
@@ -46,7 +49,7 @@ namespace CommandPattern
 		if (cmd)
 			EXPECT_EQ(cmd->Execute(actor.get()), JUMP);
 
-		//���� JUMP�� ��ϵǾ��� KEY_X�� nullptr ó���Ǿ���.
+		//원래 JUMP가 등록되었던 KEY_X는 nullptr 처리되었다.
 		EXPECT_EQ(inputHandler->GetCommand(KEY_X), nullptr);
 	}
 
@@ -88,6 +91,7 @@ namespace FlyweightPattern
 		World world;
 		world.GenerateTerrain();
 
+		//지형타일이 공유된다.
 		auto movementCost = world.GetTile(2, 3).GetMovementCost();
 		EXPECT_GE(movementCost, 0);
 	}
@@ -101,6 +105,7 @@ namespace ObserverPattern
 		Physics physics;
 		Achievements achievements;
 
+		//물리엔진에 옵저버를 붙여서 조건이 완수되는지 확인한다.
 		physics.AddObserver(&achievements);
 
 		physics.UpdateEntity(entity);
@@ -117,6 +122,7 @@ namespace PrototypePattern
 		std::unique_ptr<Spawner> ghostSpawner = std::make_unique<Spawner>(ghostPrototype.get());
 		EXPECT_EQ(ghostPrototype->GetHealth(), 15);
 
+		//프로토타입에 맞춰서 새로운 몬스터를 만든다.
 		std::unique_ptr<Monster> ghost = ghostSpawner->SpawnMonster();
 		EXPECT_EQ(ghost->GetHealth(), 15);
 	}
@@ -168,7 +174,7 @@ namespace TypeObjectPattern
 		manager.CreateBreed(L"./Test/monster.json");
 
 		std::unique_ptr<TO::Monster> trollArcher = manager.MakeMonster(TrollArcher);
-		EXPECT_EQ(trollArcher->GetAttack(), L"Ʈ�� �ü��� Ȱ�� ���ϴ�!");
+		EXPECT_EQ(trollArcher->GetAttack(), L"트롤 궁수가 활을 쏩니다!");
 		EXPECT_EQ(trollArcher->GetHealth(), 25);
 	}
 }
@@ -187,5 +193,22 @@ namespace EventQueuePattern
 		PlayMessage msg2 = Audio::Update();
 		EXPECT_EQ(msg2.id, 4);
 		EXPECT_EQ(msg2.volume, 10);
+	}
+}
+
+namespace ServiceMediatorAndDecorator
+{
+	using namespace locator;
+
+	TEST(AudioLocator, Test)
+	{
+		Locator::Initialize();
+
+		std::unique_ptr<locator::Audio> audio = std::make_unique<ConsoleAudio>();
+		locator::Audio* addressAudio = audio.get();
+		Locator::Provide(audio);
+		locator::Audio& serviceAudio = Locator::GetAudio();
+
+		EXPECT_EQ(addressAudio, &serviceAudio);
 	}
 }
