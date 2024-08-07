@@ -7,6 +7,7 @@
 #include "../State/FSM.h"
 #include "../Bytecode/VirtualMachine.h"
 #include "../TypeObject/Monster.h"
+#include "../EventQueue/Audio.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -169,5 +170,22 @@ namespace TypeObjectPattern
 		std::unique_ptr<TO::Monster> trollArcher = manager.MakeMonster(TrollArcher);
 		EXPECT_EQ(trollArcher->GetAttack(), L"Æ®·Ñ ±Ã¼ö°¡ È°À» ½õ´Ï´Ù!");
 		EXPECT_EQ(trollArcher->GetHealth(), 25);
+	}
+}
+
+namespace EventQueuePattern
+{
+	TEST(AsyncPlaySound, Test)
+	{
+		Audio::Init();
+		Audio::PlaySound(3, 7);
+		PlayMessage msg1 = Audio::Update();
+		EXPECT_EQ(msg1.id, 3);
+		
+		Audio::PlaySound(4, 8);
+		Audio::PlaySound(4, 10);
+		PlayMessage msg2 = Audio::Update();
+		EXPECT_EQ(msg2.id, 4);
+		EXPECT_EQ(msg2.volume, 10);
 	}
 }
