@@ -9,6 +9,7 @@
 #include "../TypeObject/Monster.h"
 #include "../EventQueue/Audio.h"
 #include "../ServiceMediator&Decorator/Locator.h"
+#include "../DataLocality/Particle.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -210,5 +211,18 @@ namespace ServiceMediatorAndDecorator
 		locator::Audio& serviceAudio = Locator::GetAudio();
 
 		EXPECT_EQ(addressAudio, &serviceAudio);
+	}
+}
+
+namespace DataLocality
+{
+	TEST(ParticleSystem, Test)
+	{
+		ParticleSystem particle;
+		particle.Show(0);		//한프레임만 산다.
+		particle.Show(1);	
+		particle.Update();
+
+		EXPECT_EQ(particle.GetActive(), 1);
 	}
 }

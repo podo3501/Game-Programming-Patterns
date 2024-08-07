@@ -129,6 +129,9 @@
     <ProjectReference Include="..\Command\Command.vcxproj">
       <Project>{d5419c27-5d80-451c-add3-402bb8184b2f}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\DataLocality\DataLocality.vcxproj">
+      <Project>{8a9966df-daf7-4a45-b991-eec37eb214f9}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\EventQueue\EventQueue.vcxproj">
       <Project>{c5346e59-2142-4746-89af-b53e13ccb70d}</Project>
     </ProjectReference>
