@@ -12,6 +12,7 @@
 #include "../DataLocality/Particle.h"
 #include "../DirtyFlag/GraphNode.h"
 #include "../ObjectPool/ParticlePool.h"
+#include "../SpatialPartition/Grid.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -259,5 +260,22 @@ namespace ObjectPool
 		particlePool.Animate();
 
 		EXPECT_EQ(particlePool.GetAvailableCount(), 98);
+	}
+}
+
+namespace SpatialPartition
+{
+	using namespace SP;
+	TEST(Grid, Test)
+	{
+		SP::Grid grid;
+		SP::Unit unit0(&grid, 7.0, 8.0);
+		SP::Unit unit1(&grid, 12.0, 13.0);
+		SP::Unit unit2(&grid, 12.0, 13.0);
+		SP::Unit unit3(&grid, 22.0, 18.0);
+
+		grid.HandleMelee();
+		//캐릭터가 4명이면 체크할때는 3!(6)만큼 계산해야 하지만 파티션을 나누어서 계산하면 3번으로 끝난다.
+		EXPECT_EQ(grid.GetAttackCheckCount(), 3);
 	}
 }

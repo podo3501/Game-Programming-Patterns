@@ -153,6 +153,9 @@
     <ProjectReference Include="..\ServiceMediator&amp;Decorator\ServiceMediator&amp;Decorator.vcxproj">
       <Project>{5e6211ff-0644-4020-9809-f88b9a821611}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\SpatialPartition\SpatialPartition.vcxproj">
+      <Project>{07b7f326-5bb1-460b-8dd4-8ed9bc6d293c}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\State\State.vcxproj">
       <Project>{97580377-e3c9-44e9-9d30-410b252d27bb}</Project>
     </ProjectReference>
