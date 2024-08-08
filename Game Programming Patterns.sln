@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataLocality", "DataLocalit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirtyFlag", "DirtyFlag\DirtyFlag.vcxproj", "{14D9BB3B-471F-43D6-A7D2-B3A0A926FF05}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ObjectPool", "ObjectPool\ObjectPool.vcxproj", "{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -131,6 +133,14 @@ Global
 		{14D9BB3B-471F-43D6-A7D2-B3A0A926FF05}.Release|x64.Build.0 = Release|x64
 		{14D9BB3B-471F-43D6-A7D2-B3A0A926FF05}.Release|x86.ActiveCfg = Release|Win32
 		{14D9BB3B-471F-43D6-A7D2-B3A0A926FF05}.Release|x86.Build.0 = Release|Win32
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Debug|x64.ActiveCfg = Debug|x64
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Debug|x64.Build.0 = Debug|x64
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Debug|x86.ActiveCfg = Debug|Win32
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Debug|x86.Build.0 = Debug|Win32
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Release|x64.ActiveCfg = Release|x64
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Release|x64.Build.0 = Release|x64
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Release|x86.ActiveCfg = Release|Win32
+		{675D0F3B-6887-47F4-AD9E-F4C1FDE77481}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

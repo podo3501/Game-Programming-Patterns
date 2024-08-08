@@ -11,6 +11,7 @@
 #include "../ServiceMediator&Decorator/Locator.h"
 #include "../DataLocality/Particle.h"
 #include "../DirtyFlag/GraphNode.h"
+#include "../ObjectPool/ParticlePool.h"
 
 class GlobalEnv : public ::testing::Environment
 {
@@ -243,5 +244,20 @@ namespace DirtyFlag
 		
 		EXPECT_EQ(nodeParent->GetTransform().GetValue(), 10);
 		EXPECT_EQ(nodeChild->GetTransform().GetValue(), 15);
+	}
+}
+
+namespace ObjectPool
+{
+	using namespace OP;
+	TEST(ObjectPool, Test)
+	{
+		ParticlePool particlePool;
+
+		particlePool.Create(10, 11, 1, 2, 1);
+		particlePool.Create(20, 21, 1, 2, 2);
+		particlePool.Animate();
+
+		EXPECT_EQ(particlePool.GetAvailableCount(), 98);
 	}
 }
